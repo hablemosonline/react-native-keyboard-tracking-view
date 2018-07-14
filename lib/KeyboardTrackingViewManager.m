@@ -404,12 +404,15 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
         
         if(self.scrollBehavior == KeyboardTrackingScrollBehaviorScrollToBottomInvertedOnly && _scrollIsInverted)
         {
-            BOOL fisrtTime = _observingInputAccessoryView.keyboardHeight == 0 && _observingInputAccessoryView.keyboardState == KeyboardStateHidden;
+            BOOL firstTime = _observingInputAccessoryView.keyboardHeight == 0 && _observingInputAccessoryView.keyboardState == KeyboardStateHidden;
             BOOL willOpen = _observingInputAccessoryView.keyboardHeight != 0 && _observingInputAccessoryView.keyboardState == KeyboardStateHidden;
             BOOL isOpen = _observingInputAccessoryView.keyboardHeight != 0 && _observingInputAccessoryView.keyboardState == KeyboardStateShown;
-            if(fisrtTime || willOpen || (isOpen && !self.isDraggingScrollView))
+            if((firstTime || willOpen || (isOpen && !self.isDraggingScrollView)))
             {
-                [self.scrollViewToManage setContentOffset:CGPointMake(self.scrollViewToManage.contentOffset.x, -self.scrollViewToManage.contentInset.top) animated:!fisrtTime];
+                if(self.scrollViewToManage.contentOffset.y <= 100 || firstTime)
+                {
+                    [self.scrollViewToManage setContentOffset:CGPointMake(self.scrollViewToManage.contentOffset.x, -self.scrollViewToManage.contentInset.top) animated:true];
+                }
             }
         }
         else if(self.scrollBehavior == KeyboardTrackingScrollBehaviorFixedOffset && !self.isDraggingScrollView)
