@@ -409,7 +409,7 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
             BOOL isOpen = _observingInputAccessoryView.keyboardHeight != 0 && _observingInputAccessoryView.keyboardState == KeyboardStateShown;
             if((firstTime || willOpen || (isOpen && !self.isDraggingScrollView)))
             {
-                if(self.scrollViewToManage.contentOffset.y <= 100 || firstTime)
+                if(self.scrollViewToManage.contentOffset.y <= 200)
                 {
                     [self.scrollViewToManage setContentOffset:CGPointMake(self.scrollViewToManage.contentOffset.x, -self.scrollViewToManage.contentInset.top) animated:true];
                 }
